@@ -1,19 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { MaterialModule } from 'src/shared/material/material.module';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { SideNavComponent } from './bop/side-nav/side-nav.component';
 import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SideNavComponent } from './shared/side-nav/side-nav.component';
+import { Metadata } from './shared/metadata';
+import { AccountUtil } from './bop/services/account-util.service';
 
 
 const routes: Routes = [
    { path: 'demo', loadChildren: './demo/demo.module#DemoModule'},
-   { path: 'bop', loadChildren: './bop/business-info/business-info.module#BusinessInfoModule'},
+   { path: 'bop/businessInfo', loadChildren: './bop/business-info/business-info.module#BusinessInfoModule'},
+   { path: 'bop/eligibility/:id', loadChildren: './bop/eligibility/eligibility.module#EligibilityModule'},
    { path: '**', loadChildren: './shared/home/home.module#HomeModule'},
    
 ];
@@ -21,18 +25,20 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavComponent,
+    SideNavComponent,     
     ToolbarComponent
   ],
   imports: [
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({ }),
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [Metadata, AccountUtil],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

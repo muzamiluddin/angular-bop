@@ -1,0 +1,30 @@
+<!-- Sidebar -->
+<div id="sidebar-wrapper" *ngIf="displaySideNav">
+  <ul class="sidebar-nav">
+    <li [className]="isCurrentScreen('BusinessInfo') ? 'active' : 'inactive'">
+      <a href="#">
+        <span class="sidebar-nav-icon">
+          <mat-icon>business</mat-icon>
+        </span>
+        Business Information
+      </a>
+    </li>
+    <li [className]="isCurrentScreen('Eligibility') ? 'active' : 'inactive'">
+      <a href="#">Eligibility</a>
+    </li>
+    <li [className]="isCurrentScreen('Locations') ? 'active' : 'inactive'">
+      <a href="#">Locations</a>
+    </li>
+    <li [className]="isCurrentScreen('Buildings') ? 'active' : 'inactive'">
+      <a href="#">Buildings</a>
+    </li>
+    <li [className]="isCurrentScreen('Quote') ? 'active' : 'inactive'">
+      <a href="#">Quote</a>
+    </li>
+    <li>
+      <a href="#">Payment</a>
+    </li>
+
+  </ul>
+</div>
+<!-- /#sidebar-wrapper -->

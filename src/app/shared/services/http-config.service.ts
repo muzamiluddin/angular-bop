@@ -9,7 +9,7 @@ const httpOptions = {
   })
 }
 
-const pcURL = 'http://localhost:8180/pc/service/edge/quote/quote'
+const pcURL = 'http://localhost:8180/pc/service/edge'
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,10 @@ export class HttpConfigService {
       "jsonrpc": "2.0"
     }
     return this.http.post(pcURL, body, httpOptions)
+  }
+
+  post(body, capability) : Observable<any>{
+    return this.http.post(pcURL + capability, body, httpOptions)
   }
 
 }

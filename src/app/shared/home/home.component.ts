@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   navToBOPWizard() {
     console.log('taking user to BOP flow');
-    this.router.navigate(['/bop']);
+    this.router.navigate(['/bop/businessInfo']);
   }
 
 }

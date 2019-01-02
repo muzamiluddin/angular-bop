@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BusinessInfoComponent } from './business-info.component';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/shared/material/material.module';
-import { StoreModule } from '@ngrx/store';
-import { AccountReducer } from './state/account.reducer';
+import { EligibilityComponent } from './eligibility.component';
 
-
-
-const routes = [{ path: '**', component: BusinessInfoComponent }]
+const routes = [{ path: '**', component: EligibilityComponent }]
 
 @NgModule({
   imports: [
@@ -17,9 +13,8 @@ const routes = [{ path: '**', component: BusinessInfoComponent }]
     RouterModule.forChild(routes),
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule,
-    StoreModule.forFeature('account', AccountReducer)
+    ReactiveFormsModule
   ],
-  declarations: [BusinessInfoComponent]
+  declarations: [EligibilityComponent]
 })
-export class BusinessInfoModule { }
+export class EligibilityModule { }
