@@ -1,0 +1,129 @@
+<div class="width-80">
+  <form [formGroup]="accountForm">
+    <mat-expansion-panel [expanded]="step === 'BusinessInfo' ">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Business Information
+        </mat-panel-title>
+        <mat-panel-description>
+          Enter Business Name and Address
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <mat-form-field class="col-sm">
+              <input matInput placeholder="Business Name" value="" formControlName="name">
+              <mat-error *ngIf="accountForm.controls['name'].errors?.required">
+                Business Name is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row" formGroupName="address">
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Address Line 1" value="" formControlName="addressLine1">
+              <mat-error *ngIf="accountForm.controls['address'].controls['addressLine1'].errors?.required">
+                Address Line 1 is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Address Line 2" value="" formControlName="addressLine2">
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-4">
+              <input matInput placeholder="City" value="" formControlName="city">
+              <mat-error *ngIf="accountForm.controls['address'].controls['city'].errors?.required">
+                City is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-4">
+              <input matInput placeholder="Postal Code" value="" formControlName="postalCode">
+              <mat-error *ngIf="accountForm.controls['address'].controls['postalCode'].errors?.required">
+                Postal Code is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-4">
+              <mat-select placeholder="State" formControlName="state">
+                <mat-option *ngFor="let state of stateList" [value]="state.value">
+                  {{state.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="accountForm.controls['address'].controls['state'].errors?.required">
+                State is required
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+      <mat-action-row>
+        <button mat-button color="accent" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </form>
+
+
+  <form [formGroup]="additionalInfoForm">
+    <mat-expansion-panel [expanded]="step === 'AdditionalBusinessDetails' ">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Additional Business Information
+        </mat-panel-title>
+        <mat-panel-description>
+          Enter FEIN, Organization Type, Email, Phone and Industry
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Email" value="" formControlName="email">
+              <mat-error *ngIf="additionalInfoForm.controls['email'].errors">
+                Email is invalid
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-sm-6">
+              <input matInput placeholder="Phone" value="" formControlName="phone">
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-4">
+              <input matInput placeholder="FEIN" value="" formControlName="fein">
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-4">
+              <mat-select placeholder="Organization Type" formControlName="organizationType">
+                <mat-option *ngFor="let org of organizationList" [value]="org.value">
+                  {{org.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="additionalInfoForm.controls['organizationType'].errors?.required">
+                Organization Type is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-4">
+              <mat-select placeholder="Industry" formControlName="industryCode">
+                <mat-option *ngFor="let ind of industryList" [value]="ind.value">
+                  {{ind.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="additionalInfoForm.controls['industryCode'].errors?.required">
+                Industry Code is required
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="createAccountAndSubmission()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+  </form>
+</div>
+
+<button mat-button color="danger" (click)="dispatchDummyEvent()">Dispatch Dummy Action</button>

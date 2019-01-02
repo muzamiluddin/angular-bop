@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BusinessInfoComponent } from './business-info.component';
+import { BusinessOwnersComponent } from './business-owners.component';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/shared/material/material.module';
-//import { StoreModule } from '@ngrx/store';
-//import { AccountReducer } from './state/account.reducer';
+import { StoreModule } from '@ngrx/store';
+import { AccountReducer } from '../bop/business-info/state/account.reducer';
 
-
-
-const routes = [{ path: '**', component: BusinessInfoComponent }]
+const routes = [{ path: '**', component: BusinessOwnersComponent }]
 
 @NgModule({
   imports: [
@@ -18,8 +16,12 @@ const routes = [{ path: '**', component: BusinessInfoComponent }]
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-//    StoreModule.forFeature('account', AccountReducer)
+    StoreModule.forFeature('account', AccountReducer)
   ],
-  declarations: [BusinessInfoComponent]
+  declarations: [BusinessOwnersComponent]
 })
-export class BusinessInfoModule { }
+export class BusinessOwnersModule { }
+
+
+
+

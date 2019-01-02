@@ -1,5 +1,3 @@
-import { Metadata } from "src/app/shared/metadata";
-
 export function AccountReducer(state, action) {
     if (state == null || state === 'undefined') {
         state = {
@@ -27,5 +25,5 @@ export function AccountReducer(state, action) {
             console.log('processing event');
             state.name = state.name + ' awesome';
             return state;
-    }
+    } 
 }

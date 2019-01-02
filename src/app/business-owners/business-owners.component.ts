@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { SubmissionService } from '../services/submission.service';
 import { Router } from '@angular/router';
-//import { Store, select } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Metadata } from 'src/app/shared/metadata';
 import { SelectOption } from 'src/app/interfaces/select-option.model';
 import { Account } from 'src/app/interfaces/account.model'
+import { SubmissionService } from '../bop/services/submission.service';
 //import { AccountUtil } from '../services/account-util.service';
 
 @Component({
-  selector: 'app-business-info',
-  templateUrl: './business-info.component.html',
-  styleUrls: ['./business-info.component.css']
+  selector: 'app-business-owners',
+  templateUrl: './business-owners.component.html',
+  styleUrls: ['./business-owners.component.css']
 })
-export class BusinessInfoComponent implements OnInit {
+export class BusinessOwnersComponent implements OnInit {
   sub: any; //TODO: To be changed to strong type
   accountForm;
   additionalInfoForm;

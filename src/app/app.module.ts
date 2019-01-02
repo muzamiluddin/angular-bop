@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+//import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { MaterialModule } from 'src/shared/material/material.module';
 import { FormsModule } from '@angular/forms';
@@ -16,8 +16,8 @@ import { AccountUtil } from './bop/services/account-util.service';
 
 const routes: Routes = [
    { path: 'demo', loadChildren: './demo/demo.module#DemoModule'},
-   { path: 'bop/businessInfo', loadChildren: './bop/business-info/business-info.module#BusinessInfoModule'},
-   { path: 'bop/eligibility/:id', loadChildren: './bop/eligibility/eligibility.module#EligibilityModule'},
+   { path: 'bop', loadChildren: './business-owners/business-owners.module#BusinessOwnersModule'},
+   { path: 'business-owners', loadChildren: './business-owners/business-owners.module#BusinessOwnersModule'},
    { path: '**', loadChildren: './shared/home/home.module#HomeModule'},
    
 ];
@@ -30,13 +30,13 @@ const routes: Routes = [
   ],
   imports: [
     StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({ }),
+    //StoreDevtoolsModule.instrument({ }),
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [Metadata, AccountUtil],
   bootstrap: [AppComponent]
