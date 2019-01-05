@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Account } from 'src/app/interfaces/account.model';
 import { ActionType } from '../enums/action-type';
 import { AccountState } from '../app.state';
+import { CreateAccount } from '../actions/account.actions';
 
 @Component({
   selector: 'app-business-info',
@@ -68,11 +69,8 @@ export class BusinessInfoComponent implements OnInit {
   }
 
   dispatchCurrentStatus() {
-    // Dispatch event related to loading of business info screen
-    this.store.dispatch({
-      type: 'LOAD_BUSINESS_INFO',
-      payload: 'dummy payload'
-    });
+    // Dispatch a dummy createAccount event
+    this.store.dispatch(new CreateAccount(this.accountForm.value));
   }
 
   ngOnInit() {
