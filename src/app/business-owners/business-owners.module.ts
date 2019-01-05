@@ -5,9 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/shared/material/material.module';
 import { StoreModule } from '@ngrx/store';
-import { AccountReducer } from '../bop/business-info/state/account.reducer';
+import { BusinessInfoComponent } from './business-info/business-info.component';
+import { EligibilityComponent } from './eligibility/eligibility.component';
+import { AccountReducer } from './reducers/account.reducer';
+import { SubmissionReducer } from './reducers/submission.reducer';
 
-const routes = [{ path: '**', component: BusinessOwnersComponent }]
+const routes = [{ path: '**', component: BusinessOwnersComponent }];
 
 @NgModule({
   imports: [
@@ -16,9 +19,12 @@ const routes = [{ path: '**', component: BusinessOwnersComponent }]
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('account', AccountReducer)
+    StoreModule.forFeature('transaction', {
+      account: AccountReducer,
+      submission: SubmissionReducer,
+    })
   ],
-  declarations: [BusinessOwnersComponent]
+  declarations: [BusinessOwnersComponent, BusinessInfoComponent, EligibilityComponent]
 })
 export class BusinessOwnersModule { }
 

@@ -1,16 +1,8 @@
-<div class="width-80">
-  <form [formGroup]="accountForm">
-    <mat-expansion-panel [expanded]="step === 'BusinessInfo' ">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Business Information
-        </mat-panel-title>
-        <mat-panel-description>
-          Enter Business Name and Address
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="row">
-        <div class="col">
+<form [formGroup]="accountForm">
+  <div class="row">
+    <div class="col">
+      <mat-card>
+        <mat-card-content>
           <div class="row">
             <mat-form-field class="col-sm">
               <input matInput placeholder="Business Name" value="" formControlName="name">
@@ -54,33 +46,20 @@
                 State is required
               </mat-error>
             </mat-form-field>
-
           </div>
-        </div>
-      </div>
-      <mat-action-row>
-        <button mat-button color="accent" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </form>
-
-
-  <form [formGroup]="additionalInfoForm">
-    <mat-expansion-panel [expanded]="step === 'AdditionalBusinessDetails' ">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Additional Business Information
-        </mat-panel-title>
-        <mat-panel-description>
-          Enter FEIN, Organization Type, Email, Phone and Industry
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="row">
-        <div class="col">
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <div class="row card-title">
+            <div class="col">
+              Additional Account Information
+            </div>
+          </div>
           <div class="row">
             <mat-form-field class="col-sm-6">
               <input matInput placeholder="Email" value="" formControlName="email">
-              <mat-error *ngIf="additionalInfoForm.controls['email'].errors">
+              <mat-error *ngIf="accountForm.controls['email'].errors">
                 Email is invalid
               </mat-error>
             </mat-form-field>
@@ -98,7 +77,7 @@
                   {{org.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="additionalInfoForm.controls['organizationType'].errors?.required">
+              <mat-error *ngIf="accountForm.controls['organizationType'].errors?.required">
                 Organization Type is required
               </mat-error>
             </mat-form-field>
@@ -109,21 +88,16 @@
                   {{ind.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="additionalInfoForm.controls['industryCode'].errors?.required">
+              <mat-error *ngIf="accountForm.controls['industryCode'].errors?.required">
                 Industry Code is required
               </mat-error>
             </mat-form-field>
-
           </div>
-        </div>
-      </div>
+        </mat-card-content>
+      </mat-card>
       <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="createAccountAndSubmission()">Next</button>
+        <button mat-button color="accent" (click)="validateAndNext()">Next</button>
       </mat-action-row>
-    </mat-expansion-panel>
-
-  </form>
-</div>
-
-<button mat-button color="danger" (click)="dispatchDummyEvent()">Dispatch Dummy Action</button>
+    </div>
+  </div>
+</form>

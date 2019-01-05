@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, NgForm, FormGroupDirective } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { SubmissionService } from '../services/submission.service';
-import { Router } from '@angular/router';
-//import { Store, select } from '@ngrx/store';
-import { Metadata } from 'src/app/shared/metadata';
 import { SelectOption } from 'src/app/interfaces/select-option.model';
-import { Account } from 'src/app/interfaces/account.model'
-//import { AccountUtil } from '../services/account-util.service';
+import { SubmissionService } from 'src/app/bop/services/submission.service';
+import { Router } from '@angular/router';
+import { Metadata } from 'src/app/shared/metadata';
+import { AccountUtil } from 'src/app/bop/services/account-util.service';
+import { Store } from '@ngrx/store';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Account } from 'src/app/interfaces/account.model';
+import { ActionType } from '../enums/action-type';
+import { AccountState } from '../app.state';
 
 @Component({
   selector: 'app-business-info',
@@ -15,10 +16,11 @@ import { Account } from 'src/app/interfaces/account.model'
   styleUrls: ['./business-info.component.css']
 })
 export class BusinessInfoComponent implements OnInit {
-  sub: any; //TODO: To be changed to strong type
+  // TODO: To be changed to strong type
+  sub: any;
   accountForm;
   additionalInfoForm;
-  step: string = 'BusinessInfo'
+  step: String = 'BusinessInfo';
   formStatus: boolean;
   mockData;
   organizationList: SelectOption[];
@@ -38,14 +40,14 @@ export class BusinessInfoComponent implements OnInit {
     fein: '',
     organizationType: '',
     industryCode: ''
-  }
+  };
 
   constructor(private submissionService: SubmissionService,
     private router: Router,
     private metadata: Metadata,
-//    private accountUtil: AccountUtil,
-//    private store: Store<any>
-) { }
+    private accountUtil: AccountUtil,
+    private store: Store<AccountState>
+  ) { }
 
   initAccountForm() {
     this.accountForm = new FormGroup({
@@ -56,13 +58,7 @@ export class BusinessInfoComponent implements OnInit {
         city: new FormControl(this.account.address.city, [Validators.required]),
         postalCode: new FormControl(this.account.address.postalCode, [Validators.required]),
         state: new FormControl(this.account.address.state, [Validators.required])
-      })
-    });
-  }
-
-  initAdditionalInfoForm() {
-    // Initiate additional account info form
-    this.additionalInfoForm = new FormGroup({
+      }),
       email: new FormControl(this.account.email, [Validators.email]),
       phone: new FormControl(this.account.phone),
       fein: new FormControl(this.account.fein),
@@ -73,11 +69,10 @@ export class BusinessInfoComponent implements OnInit {
 
   dispatchCurrentStatus() {
     // Dispatch event related to loading of business info screen
- /*   this.store.dispatch({
-      type: 'INIT_BUSINESS_INFO',
+    this.store.dispatch({
+      type: 'LOAD_BUSINESS_INFO',
       payload: 'dummy payload'
-    })
-    */
+    });
   }
 
   ngOnInit() {
@@ -85,65 +80,50 @@ export class BusinessInfoComponent implements OnInit {
     this.setMetadata();
     this.initAccountForm();
     this.dispatchCurrentStatus();
-    this.initAdditionalInfoForm();
-//    this.fetchAccount();
-/*    this.store.pipe(select('account')).subscribe(account => {
-      if (this.account) {
-        // Initiate account Form
-        this.account = account;
-        this.initAccountForm();
-        this.initAdditionalInfoForm();
-      }
-      console.log('Initializing account from store');
-    });
-    */
+    //    this.fetchAccount();
+    /*    this.store.pipe(select('account')).subscribe(account => {
+          if (this.account) {
+            // Initiate account Form
+            this.account = account;
+            this.initAccountForm();
+            this.initAdditionalInfoForm();
+          }
+          console.log('Initializing account from store');
+        });
+        */
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy(): void {
-//    this.sub.unsubscribe();
+    //    this.sub.unsubscribe();
   }
 
-  nextStep() {
-    if (this.step == 'BusinessInfo') {
-      if (!this.accountForm.valid) {
-        return;
-      }
-      this.step = 'AdditionalBusinessDetails'
-    }
-  }
-
-  prevStep() {
-    if (this.step == 'AdditionalBusinessDetails') {
-      this.step = 'BusinessInfo'
-    }
-  }
-
-  createAccountAndSubmission() {
-    if (!this.accountForm.valid || !this.additionalInfoForm.valid) {
-      console.log("Form is invalid");
+  validateAndNext() {
+    if (!this.accountForm.valid) {
       return;
     }
 
+    this.store.dispatch({ type: ActionType.UPDATE_ACCOUNT, payload: this.accountForm.value });
     this.submissionService.createAccountSubmission(this.accountForm.value).subscribe((data) => {
-      console.log("Account and submission created");
+      console.log('Account and submission created');
       console.log(data);
-    })
+    });
 
     this.router.navigate(['/bop/eligibility']);
 
   }
 
   dispatchDummyEvent() {
-    //this.account = this.accountUtil.setAccountInfo(this.account, this.accountForm.value)
-    //this.store.dispatch({ type: 'INIT_BUSINESS_INFO', payload: this.account })
+    // this.account = this.accountUtil.setAccountInfo(this.account, this.accountForm.value)
+    // this.store.dispatch({ type: 'INIT_BUSINESS_INFO', payload: this.account })
   }
 
   callMockService() {
     this.submissionService.getMetadata().subscribe((data) => {
-      console.log("Metadata received from PC is")
+      console.log('Metadata received from PC is');
       console.log(data);
       this.mockData = data;
-    })
+    });
   }
 
   setMetadata() {

@@ -7,24 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
 
-  displaySideNav = false;
-  href: string = ''
+  displaySideNav = true;
+  href: String = '';
   constructor() { }
 
   ngOnInit() {
   }
 
-  isCurrentScreen(screenName){
-    
-    if (this.href.includes('eligibility') && screenName == 'eligibility'){
+  isCurrentScreen(screenName) {
+    if (this.href.includes('eligibility') && screenName === 'eligibility'){
       return true;
     }
 
-    if (this.href.includes('businessInfo') && screenName == 'businessInfo'){
+    if (this.href.includes('businessInfo') && screenName === 'businessInfo'){
       return true;
     }
 
-    if (screenName == 'BusinessInfo' ){
+    if (screenName === 'BusinessInfo' ){
       return true;
     }
 
