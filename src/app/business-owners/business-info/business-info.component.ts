@@ -70,6 +70,7 @@ export class BusinessInfoComponent implements OnInit {
 
   dispatchCurrentStatus() {
     // Dispatch a dummy createAccount event
+    console.log(' Dispatching create account action on click of button');
     this.store.dispatch(new CreateAccount(this.accountForm.value));
   }
 
@@ -101,13 +102,7 @@ export class BusinessInfoComponent implements OnInit {
       return;
     }
 
-    this.store.dispatch({ type: ActionType.UPDATE_ACCOUNT, payload: this.accountForm.value });
-    this.submissionService.createAccountSubmission(this.accountForm.value).subscribe((data) => {
-      console.log('Account and submission created');
-      console.log(data);
-    });
-
-    this.router.navigate(['/bop/eligibility']);
+    this.store.dispatch(new CreateAccount(this.accountForm.value));
 
   }
 

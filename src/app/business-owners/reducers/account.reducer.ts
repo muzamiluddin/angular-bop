@@ -22,21 +22,24 @@ const initialState: AccountState = {
 };
 
 export function AccountReducer(state: AccountState = initialState, action: AccountActions): AccountState {
-    console.log('********Received an event******');
-    console.log('State: ' + JSON.stringify(state));
-    console.log('Paload: ' + action.payload);
 
     switch (action.type) {
         case AccountActionTypes.CreateAccount:
             console.log('Inside of create account action');
+            console.log('State: ' + JSON.stringify(state));
+            console.log('Paload: ' + action.payload);
             state.account.name = state.account.name + 'account updated';
             return state;
         case AccountActionTypes.CreateAccountSuccess:
             console.log('Inside of create account success action');
+            console.log('State: ' + JSON.stringify(state));
+            console.log('Paload: ' + action.payload);
             state.account.name = state.account.name + 'success';
             return state;
         default:
             console.log('Inside of default action');
+            console.log('State: ' + JSON.stringify(state));
+            console.log('Paload: ' + action.payload);
             state.account.name = state.account.name + ' awesome';
             return state;
     }

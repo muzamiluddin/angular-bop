@@ -6,8 +6,6 @@ export interface AccountState {
 }
 
 export interface AppState {
-    account: AccountState;
-    submission: Submission;
     currentStep: string;
     displayLeftNav: boolean;
 }

@@ -24,12 +24,12 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavComponent,     
+    SideNavComponent,
     ToolbarComponent
   ],
   imports: [
     StoreModule.forRoot({}),
-    //StoreDevtoolsModule.instrument({ }),
+    // StoreDevtoolsModule.instrument({ }),
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,

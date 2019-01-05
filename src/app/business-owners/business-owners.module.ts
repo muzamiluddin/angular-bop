@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { BusinessInfoComponent } from './business-info/business-info.component';
 import { EligibilityComponent } from './eligibility/eligibility.component';
 import { AccountReducer } from './reducers/account.reducer';
-import { SubmissionReducer } from './reducers/submission.reducer';
+import { ScreenReducer } from './reducers/screen.reducer';
 
 const routes = [{ path: '**', component: BusinessOwnersComponent }];
 
@@ -21,7 +21,7 @@ const routes = [{ path: '**', component: BusinessOwnersComponent }];
     ReactiveFormsModule,
     StoreModule.forFeature('transaction', {
       account: AccountReducer,
-      submission: SubmissionReducer,
+      appState: ScreenReducer,
     })
   ],
   declarations: [BusinessOwnersComponent, BusinessInfoComponent, EligibilityComponent]
