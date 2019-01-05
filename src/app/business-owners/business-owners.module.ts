@@ -9,6 +9,8 @@ import { BusinessInfoComponent } from './business-info/business-info.component';
 import { EligibilityComponent } from './eligibility/eligibility.component';
 import { AccountReducer } from './reducers/account.reducer';
 import { ScreenReducer } from './reducers/screen.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AccountEffects } from './effects/account.effects';
 
 const routes = [{ path: '**', component: BusinessOwnersComponent }];
 
@@ -22,7 +24,8 @@ const routes = [{ path: '**', component: BusinessOwnersComponent }];
     StoreModule.forFeature('transaction', {
       account: AccountReducer,
       appState: ScreenReducer,
-    })
+    }),
+    EffectsModule.forRoot([AccountEffects]),
   ],
   declarations: [BusinessOwnersComponent, BusinessInfoComponent, EligibilityComponent]
 })

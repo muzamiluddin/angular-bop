@@ -46,7 +46,7 @@ export class CreateAccountSuccess implements Action {
 
 export class CreateAccountFailure implements Action {
     readonly type = AccountActionTypes.CreateAccountFailure;
-    constructor (public payload: Account) {
+    constructor (public payload: any) {
 
     }
 }

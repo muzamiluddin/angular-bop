@@ -7,7 +7,7 @@ const httpOptions = {
     'Content-Type': 'application/json',
     'Authorization': 'Basic c3U6Z3c='
   })
-}
+};
 
 const pcURL = 'http://localhost:8180/pc/service/edge'
 
@@ -19,17 +19,17 @@ export class HttpConfigService {
   constructor(private http: HttpClient) { }
 
   getMetadata(): Observable<any> {
-    var body = {
-      "id": "1",
-      "method": "getMetaData",
-      "params": [],
-      "jsonrpc": "2.0"
+    const body = {
+      'id': '1',
+      'method': 'getMetaData',
+      'params': [],
+      'jsonrpc': '2.0'
     }
-    return this.http.post(pcURL, body, httpOptions)
+    return this.http.post(pcURL, body, httpOptions);
   }
 
-  post(body, capability) : Observable<any>{
-    return this.http.post(pcURL + capability, body, httpOptions)
+  post(body, capability): Observable<any> {
+    return this.http.post(pcURL + capability, body, httpOptions);
   }
 
 }

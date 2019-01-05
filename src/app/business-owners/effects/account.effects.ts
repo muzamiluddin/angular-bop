@@ -22,12 +22,14 @@ export class AccountEffects {
     createAccount$: Observable<Action> = this.actions$.pipe(
         ofType(AccountActionTypes.CreateAccount),
         map((action: CreateAccount) => {
-            console.log ('Received create account action in effect');
             return action.payload;
         }),
         mergeMap((account: Account) =>
            this.submissionService.createAccountSubmission(account).pipe(
-                map(acc => (new CreateAccountSuccess(acc))),
+                map(acc => {
+                    console.log('Got response from server');
+                    return new CreateAccountSuccess(acc);
+                }),
                 catchError(err => of(new CreateAccountFailure(err)))
            )
         )

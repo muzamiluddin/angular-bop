@@ -6,7 +6,7 @@ import { Metadata } from 'src/app/shared/metadata';
 import { AccountUtil } from 'src/app/bop/services/account-util.service';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Account } from 'src/app/interfaces/account.model';
+import { Account, NEW_ACCOUNT } from 'src/app/interfaces/account.model';
 import { ActionType } from '../enums/action-type';
 import { AccountState } from '../app.state';
 import { CreateAccount } from '../actions/account.actions';
@@ -27,21 +27,7 @@ export class BusinessInfoComponent implements OnInit {
   organizationList: SelectOption[];
   industryList: SelectOption[];
   stateList: SelectOption[];
-  account: Account = {
-    name: '',
-    address: {
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      state: '',
-      postalCode: ''
-    },
-    email: '',
-    phone: '',
-    fein: '',
-    organizationType: '',
-    industryCode: ''
-  };
+  account: Account =  NEW_ACCOUNT;
 
   constructor(private submissionService: SubmissionService,
     private router: Router,
@@ -68,28 +54,9 @@ export class BusinessInfoComponent implements OnInit {
     });
   }
 
-  dispatchCurrentStatus() {
-    // Dispatch a dummy createAccount event
-    console.log(' Dispatching create account action on click of button');
-    this.store.dispatch(new CreateAccount(this.accountForm.value));
-  }
-
   ngOnInit() {
-
     this.setMetadata();
     this.initAccountForm();
-    this.dispatchCurrentStatus();
-    //    this.fetchAccount();
-    /*    this.store.pipe(select('account')).subscribe(account => {
-          if (this.account) {
-            // Initiate account Form
-            this.account = account;
-            this.initAccountForm();
-            this.initAdditionalInfoForm();
-          }
-          console.log('Initializing account from store');
-        });
-        */
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -104,19 +71,6 @@ export class BusinessInfoComponent implements OnInit {
 
     this.store.dispatch(new CreateAccount(this.accountForm.value));
 
-  }
-
-  dispatchDummyEvent() {
-    // this.account = this.accountUtil.setAccountInfo(this.account, this.accountForm.value)
-    // this.store.dispatch({ type: 'INIT_BUSINESS_INFO', payload: this.account })
-  }
-
-  callMockService() {
-    this.submissionService.getMetadata().subscribe((data) => {
-      console.log('Metadata received from PC is');
-      console.log(data);
-      this.mockData = data;
-    });
   }
 
   setMetadata() {
