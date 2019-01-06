@@ -1,4 +1,6 @@
 import { Action } from '@ngrx/store';
+import { Account } from '../../interfaces/account.model';
+import { Transaction } from 'src/app/interfaces/transaction.model';
 
 export enum AccountActionTypes {
     UpdateAccount = '[Account] Update Account',
@@ -39,7 +41,7 @@ export class UpdateAccountFailure implements Action {
 
 export class CreateAccountSuccess implements Action {
     readonly type = AccountActionTypes.CreateAccountSuccess;
-    constructor (public payload: Account) {
+    constructor (public payload: Transaction) {
 
     }
 }

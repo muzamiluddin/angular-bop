@@ -12,15 +12,16 @@
     </mat-expansion-panel>
 
 
-    <mat-expansion-panel [expanded]="step === 'AdditionalBusinessDetails' ">
+    <mat-expansion-panel [expanded]="currentStep === 'ELIGIBILITY' ">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Additional Business Information
+          Eligibility Questions 
         </mat-panel-title>
         <mat-panel-description>
-          Enter FEIN, Organization Type, Email, Phone and Industry
+          Enter responses to determine if eligibile
         </mat-panel-description>
       </mat-expansion-panel-header>
+        <app-eligibility></app-eligibility>
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Previous</button>
         <button mat-button color="primary" (click)="createAccountAndSubmission()">Next</button>

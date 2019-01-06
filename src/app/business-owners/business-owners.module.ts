@@ -10,7 +10,8 @@ import { EligibilityComponent } from './eligibility/eligibility.component';
 import { AccountReducer } from './reducers/account.reducer';
 import { ScreenReducer } from './reducers/screen.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { AccountEffects } from './effects/account.effects';
+import { TransactionEffects } from './effects/transaction.effects';
+import { TransactionReducer } from './reducers/transaction.reducer';
 
 const routes = [{ path: '**', component: BusinessOwnersComponent }];
 
@@ -21,11 +22,7 @@ const routes = [{ path: '**', component: BusinessOwnersComponent }];
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('transaction', {
-      account: AccountReducer,
-      appState: ScreenReducer,
-    }),
-    EffectsModule.forRoot([AccountEffects]),
+    EffectsModule.forRoot([TransactionEffects]),
   ],
   declarations: [BusinessOwnersComponent, BusinessInfoComponent, EligibilityComponent]
 })

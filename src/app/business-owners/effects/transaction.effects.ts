@@ -9,9 +9,14 @@ import { Observable, of } from 'rxjs';
 import { AccountActionTypes, UpdateAccount, CreateAccountSuccess, AccountActions, CreateAccount, CreateAccountFailure } from '../actions/account.actions';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { BusinessInfoLoad } from '../actions/screen.actions';
+import { Account } from '../../interfaces/account.model';
+import { Transaction } from 'src/app/interfaces/transaction.model';
+import { SubmissionUtil } from 'src/app/bop/services/submission-util.services';
+import { CreateAccountSubmissionSuccess, CreateAccountSubmissionFailure } from '../actions/transaction.actions';
 
 @Injectable()
-export class AccountEffects {
+export class TransactionEffects {
+    transaction: Transaction;
 
     constructor(private actions$: Actions,
                 private submissionService: SubmissionService) {
@@ -26,11 +31,10 @@ export class AccountEffects {
         }),
         mergeMap((account: Account) =>
            this.submissionService.createAccountSubmission(account).pipe(
-                map(acc => {
-                    console.log('Got response from server');
-                    return new CreateAccountSuccess(acc);
+                map(resp => {
+                    return new CreateAccountSubmissionSuccess(SubmissionUtil.getTransactionFromPayload(resp));
                 }),
-                catchError(err => of(new CreateAccountFailure(err)))
+                catchError(err => of(new CreateAccountSubmissionFailure(err)))
            )
         )
     ); // pipe

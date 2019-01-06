@@ -1,4 +1,4 @@
-import { SelectOption } from "../interfaces/select-option.model";
+import { SelectOption } from '../interfaces/select-option.model';
 
 
 export class Metadata {

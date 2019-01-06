@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SideNavComponent } from './shared/side-nav/side-nav.component';
 import { Metadata } from './shared/metadata';
 import { AccountUtil } from './bop/services/account-util.service';
+import { TransactionReducer } from './business-owners/reducers/transaction.reducer';
 
 
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
     ToolbarComponent
   ],
   imports: [
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({transaction: TransactionReducer}),
     StoreDevtoolsModule.instrument({ }),
     BrowserModule,
     BrowserAnimationsModule,
